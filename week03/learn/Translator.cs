@@ -1,3 +1,6 @@
+using System.ComponentModel;
+using Microsoft.VisualBasic;
+
 public class Translator
 {
     public static void Run()
@@ -25,6 +28,14 @@ public class Translator
     public void AddWord(string fromWord, string toWord)
     {
         // ADD YOUR CODE HERE
+
+        if (_words.ContainsKey(fromWord))
+        {
+            return;
+        }
+
+        _words.Add(fromWord, toWord);
+
     }
 
     /// <summary>
@@ -35,6 +46,15 @@ public class Translator
     public string Translate(string fromWord)
     {
         // ADD YOUR CODE HERE
-        return "";
+
+        if (_words.ContainsKey(fromWord))
+        {
+            return _words[fromWord];
+
+        }
+        else
+
+
+            return "???";
     }
 }
