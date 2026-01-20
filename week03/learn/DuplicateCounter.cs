@@ -1,4 +1,6 @@
-﻿public class DuplicateCounter
+﻿using System.Runtime.ExceptionServices;
+
+public class DuplicateCounter
 {
     //Count how many duplicates are in a collection of data.
 
@@ -25,6 +27,29 @@
     private static int CountDuplicates(int[] data)
     {
         // Add code here.
-        return 0;
+        Dictionary<int, int> duplicateset = new Dictionary<int, int>();
+        int dupCount = 0;
+
+        foreach (int value in data)
+        {
+            if (duplicateset.ContainsKey(value))
+            {
+                duplicateset[value]++;
+
+            }
+            else
+            {
+                duplicateset[value] = 1;
+            }
+        }
+
+        foreach (var pair in duplicateset)
+        {
+            if (pair.Value > 1)
+            {
+                dupCount++;
+            }
+        }
+        return dupCount;
     }
 }
