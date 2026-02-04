@@ -120,9 +120,27 @@ public static class Recursion
             return 4;
 
         // TODO Start Problem 3
+        remember ??= new Dictionary<int, decimal>();
+
+        // Debug-only: should print once for the whole run if memo is shared properly
+        // Console.WriteLine($"memo hash: {remember.GetHashCode()} for s={s}");
+
+
+        if (remember.TryGetValue(s, out var cached))
+            return cached;
+
+        // if (remember == null)
+        //     remember = new Dictionary<int, decimal>();
+
+        // if (remember.ContainsKey(s))
+        //     return remember[s];
+
 
         // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
+        decimal ways = CountWaysToClimb(s - 1, remember) + CountWaysToClimb(s - 2, remember) + CountWaysToClimb(s - 3, remember);
+
+        remember[s] = ways;
+        // remember.Count();
         return ways;
     }
 
