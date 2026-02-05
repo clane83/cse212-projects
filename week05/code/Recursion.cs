@@ -180,8 +180,14 @@ public static class Recursion
     /// Use recursion to insert all paths that start at (0,0) and end at the
     /// 'end' square into the results list.
     /// </summary>
-    public static void SolveMaze(List<string> results, Maze maze, int x = 0, int y = 0, List<ValueTuple<int, int>>? currPath = null)
+    public static void SolveMaze(
+        List<string> results,
+        Maze maze,
+        int x = 0,
+        int y = 0,
+        List<ValueTuple<int, int>>? currPath = null)
     {
+
         // If this is the first time running the function, then we need
         // to initialize the currPath list.
         if (currPath == null)
@@ -193,7 +199,25 @@ public static class Recursion
 
         // TODO Start Problem 5
         // ADD CODE HERE
+        if (!maze.IsValidMove(currPath, x, y))
+            return;
 
-        // results.Add(currPath.AsString()); // Use this to add your path to the results array keeping track of complete maze solutions when you find the solution.
+        currPath.Add((x, y));
+
+        if (maze.IsEnd(x, y))
+        {
+            results.Add(currPath.AsString()); // Use this to add your path to the results array keeping track of complete maze solutions when you find the solution.
+        }
+        else
+        {
+            SolveMaze(results, maze, x + 1, y, currPath);
+            SolveMaze(results, maze, x - 1, y, currPath);
+            SolveMaze(results, maze, x, y + 1, currPath);
+            SolveMaze(results, maze, x, y - 1, currPath);
+        }
+
+        currPath.RemoveAt(currPath.Count - 1);
+
+
     }
 }
